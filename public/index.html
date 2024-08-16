@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <title>간단한 지도 표시하기</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- callback = 비동기로 지도 조회 -->
+    <!-- 클라이언트 아이디가 노출되어도 리다이렉트 URL의 포트를 랜덤하게 줘서 모르게하면 다른 사람이 쓸 수 없음 -->
+    <script
+      type="text/javascript"
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=p3c5f8sspm&callback=initMap"
+    ></script>
+  </head>
+  <body>
+    <div class="search-conditions">
+      <select id="search-type">
+        <option value="0">산</option>
+        <option value="1">바다</option>
+      </select>
+      <select id="regions">
+        <option>지역 선택</option>
+      </select>
+      <select id="sub-regions"></select>
+    </div>
+
+    <button id="search">검색</button>
+    <button id="random">랜덤</button>
+
+    <div id="map"></div>
+
+    <button id="traff_btn">교통 상황 표시</button>
+
+    <script src="js/common/regions.js"></script>
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>
