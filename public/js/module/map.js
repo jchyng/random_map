@@ -1,22 +1,28 @@
 export const mapModule = {
-  marking: (map, position, iconUrl) => {
-    const markerOptions = {
+  marking: (map, position) => {
+    const marker = new naver.maps.Marker({
       position: position,
       map: map,
-    };
+    });
 
-    if (iconUrl) {
-      markerOptions.icon = {
-        url: iconUrl,
+    naver.maps.Event.addListener(marker, "click", () => {
+      map.setCenter(position);
+      map.setZoom(14);
+    });
+  },
+  markingTarget: (map, position) => {
+    const marker = new naver.maps.Marker({
+      position: position,
+      map: map,
+      icon: {
+        url: "img/marker.png",
         size: new naver.maps.Size(30, 30),
         origin: new naver.maps.Point(0, 0),
         anchor: new naver.maps.Point(25, 25),
-      };
-    }
+      },
+    });
 
-    const marker = new naver.maps.Marker(markerOptions);
-
-    naver.maps.Event.addListener(marker, "click", () => {
+    naver.maps.Event.addListener(marker, "dblclick", () => {
       map.setCenter(position);
       map.setZoom(14);
     });

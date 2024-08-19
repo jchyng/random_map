@@ -18,9 +18,9 @@
   </head>
   <body>
     <div class="search-conditions">
-      <select id="search-type">
-        <option value="0">산</option>
-        <option value="1">바다</option>
+      <select id="target">
+        <option value="mountain">산</option>
+        <option value="beach">바다</option>
       </select>
       <select id="regions">
         <option>지역 선택</option>
@@ -30,12 +30,12 @@
       </select>
     </div>
 
-    <button id="search">검색</button>
-    <button id="random">랜덤</button>
+    <button id="search-btn">검색</button>
+    <button id="random-btn">랜덤</button>
 
     <div id="map"></div>
 
-    <button id="traff_btn">교통 상황 표시</button>
+    <button id="traff-btn">교통 상황 표시</button>
 
     <script src="js/common/regions.js"></script>
     <script type="module" src="js/index.js"></script>

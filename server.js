@@ -16,3 +16,18 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+app.get("/search", (req, res) => {
+  console.log("검색");
+  res.send(
+    JSON.stringify([
+      { lat: 37.5666805, lot: 126.9784147 },
+      { lat: 36.9666805, lot: 127.9784147 },
+    ])
+  );
+});
+
+app.get("/random", (req, res) => {
+  console.log("랜덤");
+  res.send(JSON.stringify({ lat: 37.5666805, lot: 126.9784147 }));
+});
