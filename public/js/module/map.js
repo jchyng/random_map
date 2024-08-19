@@ -1,9 +1,19 @@
 export const mapModule = {
+  removeAllMarkers: (map) => {
+    const markers = map.markers || [];
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    map.markers = [];
+  },
   marking: (map, position) => {
     const marker = new naver.maps.Marker({
       position: position,
       map: map,
     });
+
+    if (!map.markers) map.markers = [];
+    map.markers.push(marker);
 
     naver.maps.Event.addListener(marker, "click", () => {
       map.setCenter(position);
@@ -21,6 +31,9 @@ export const mapModule = {
         anchor: new naver.maps.Point(25, 25),
       },
     });
+
+    if (!map.markers) map.markers = [];
+    map.markers.push(marker);
 
     naver.maps.Event.addListener(marker, "dblclick", () => {
       map.setCenter(position);
