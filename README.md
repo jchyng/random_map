@@ -5,4 +5,4 @@
 | 항목          | 내용                                                 |
 | ------------- | --------------------------------------------------- |
 | **개발 환경** | Node.js, JavaScript, HTML, CSS                      |
-| **API**       | Naver Map API                                       |
+| **API**       | Naver Map, Swiper                                   |

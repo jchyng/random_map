@@ -1,0 +1,95 @@
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 200px;
+  height: 250px;
+}
+
+.swiper-slide.sunny {
+  background-color: #2376f1;
+}
+
+.swiper-slide.partly_cloudy {
+  background-color: #b3e5fc;
+}
+
+.swiper-slide.cloudy {
+  background-color: #90a4ae;
+}
+
+.swiper-slide.rainy {
+  background-color: #4fc3f7;
+}
+
+.swiper-slide.snowy {
+  background-color: #e1f5fe;
+}
+
+.swiper-slide:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-slide img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.swiper-slide p {
+  margin: 5px 0;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}
+
+.swiper-slide .date {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.swiper-slide .temp {
+  font-size: 16px;
+}
+
+.swiper-slide .precipitation {
+  font-size: 14px;
+}
+
+.swiper-slide p {
+  line-height: 1.4;
+}
+
+/* Swiper 내비게이션 버튼 스타일링 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #007bff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Swiper 페이지네이션 스타일링 */
+.swiper-pagination-bullet {
+  background: #007bff;
+}
+
+.swiper-pagination-bullet-active {
+  background: #0056b3;
+}
+
+/* 폰트 스타일링 */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");

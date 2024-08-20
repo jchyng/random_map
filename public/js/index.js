@@ -1,5 +1,7 @@
-import { mapModule } from "./module/map.js";
+import { mapModule } from "./module/map/map.js";
+import { markerModule } from "./module/map/marker.js";
 import { apiModule } from "./module/common/api.js";
+import { displayWeatherOnSwiper } from "./module/weather/weather.js";
 
 let map = new naver.maps.Map("map", {
   center: new naver.maps.LatLng(37.5666805, 126.9784147),
@@ -8,27 +10,32 @@ let map = new naver.maps.Map("map", {
 
 //이벤트 리스너 등록
 document.getElementById("traff-btn").addEventListener("click", setTrafficLayer);
+
 document.getElementById("search-btn").addEventListener("click", async () => {
-  mapModule.removeAllMarkers(map);
-  const param = generateParamWithSearchCondition();
-  let urn = "/search?" + param.toString();
-  const result = await apiModule.apiGet(urn);
+  markerModule.removeAllMarkers(map);
+
+  const result = fetchTarget("/search");
 
   result.forEach((el) => {
-    mapModule.markingTarget(map, new naver.maps.LatLng(el.lat, el.lot));
+    const latLng = new naver.maps.LatLng(el.lat, el.lot);
+    let marker = markerModule.markingTarget(map, latLng);
+    addTartgetMarkerEventListeners(marker);
   });
 });
 document.getElementById("random-btn").addEventListener("click", async () => {
-  mapModule.removeAllMarkers(map);
-  const param = generateParamWithSearchCondition();
-  let urn = "/random?" + param.toString();
-  const result = await apiModule.apiGet(urn);
+  markerModule.removeAllMarkers(map);
 
-  mapModule.markingTarget(map, new naver.maps.LatLng(result.lat, result.lot));
+  const result = fetchTarget("/random");
+
+  const latLng = new naver.maps.LatLng(result.lat, result.lot);
+  let marker = markerModule.markingTarget(map, latLng);
+  addTartgetMarkerEventListeners(marker);
 });
 
 //사용자 현재 위치 표시
 initMyLocation();
+
+displayWeatherOnSwiper(39.5666805, 126.9784147);
 
 // todo: 코드 정리 방법 물어보기
 //==============================================================//
@@ -44,7 +51,12 @@ function setTrafficLayer() {
 async function initMyLocation() {
   try {
     const userLocation = await mapModule.getMyLocation();
-    mapModule.marking(map, userLocation);
+    let marker = markerModule.marking(map, userLocation);
+    naver.maps.Event.addListener(
+      marker,
+      "click",
+      mapModule.zoomPosition(map, userLocation)
+    );
   } catch (error) {
     console.error("Error occurred while getting location: " + error.message);
   }
@@ -65,4 +77,33 @@ function generateParamWithSearchCondition() {
     param.append("address", subRegionTag.value);
   }
   return param;
+}
+
+async function fetchTarget(path) {
+  const param = generateParamWithSearchCondition();
+  let urn = path + "?" + param.toString();
+  return await apiModule.apiGet(urn);
+}
+
+function addTartgetMarkerEventListeners(marker) {
+  naver.maps.Event.addListener(
+    marker,
+    "click",
+    targetMarkerClickFunction(marker)
+  );
+  naver.maps.Event.addListener(
+    marker,
+    "dblclick",
+    mapModule.zoomPosition(map, userLocation)
+  );
+}
+
+async function targetMarkerClickFunction(marker) {
+  //todo: 팝업 띄우기
+
+  var position = marker.getPosition();
+  var lat = position.lat();
+  var lng = position.lng();
+
+  displayWeatherOnSwiper(lat, lng);
 }

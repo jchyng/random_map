@@ -10,6 +10,12 @@
     <link rel="icon" href="/img/favicon.png" />
     <title>Mountain & Beach</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/swiper.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@latest/swiper-bundle.min.css"
+    />
+
     <script
       type="text/javascript"
       src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=p3c5f8sspm&callback=initMap"
@@ -36,16 +42,13 @@
       </div>
 
       <div class="map-container">
-        <div class="weather-swiper-container">
-          <!-- Swiper -->
-          <div class="swiper-container">
-            <div class="swiper-wrapper">
-              <!-- Slides will be added dynamically -->
-              <div class="swiper-slide">날씨 정보 없음</div>
-            </div>
-            <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <!-- 슬라이드가 여기에 동적으로 추가됩니다 -->
           </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
         </div>
         <div id="map"></div>
         <button id="traff-btn">교통 상황 표시</button>
@@ -55,5 +58,8 @@
       <script type="module" src="js/index.js"></script>
     </div>
     <div class="ad-space">광고 공간</div>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="날씨 아이콘"
+      >날씨 아이콘 제작자: Freepik - Flaticon</a
+    >
   </body>
 </html>
