@@ -34,4 +34,17 @@ export const markerModule = {
 
     return marker;
   },
+  createInfoWindow: (targetData) => {
+    return new naver.maps.InfoWindow({
+      content: `
+        <div style="padding:10px;width:200px;">
+          <h3>${targetData.name}</h3>
+          <p>주소: ${targetData.address}</p>
+          ${targetData.altitude ? `<p>고도: ${targetData.altitude}m</p>` : ""}
+          <p>위도: ${targetData.lat}</p>
+          <p>경도: ${targetData.lot}</p>
+        </div>
+      `,
+    });
+  },
 };
