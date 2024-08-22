@@ -15,7 +15,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@latest/swiper-bundle.min.css"
     />
-
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
     <script
       type="text/javascript"
       src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=p3c5f8sspm&callback=initMap"
@@ -25,8 +30,8 @@
     <div class="container">
       <div class="search-conditions">
         <select id="target">
-          <option value="beach">바다</option>
-          <option value="mountain">산</option>
+          <option value="beaches">바다</option>
+          <option value="mountains">산</option>
         </select>
         <select id="regions">
           <option>지역 선택</option>
@@ -58,7 +63,10 @@
       <script type="module" src="js/index.js"></script>
     </div>
     <div class="ad-space">광고 공간</div>
-    <a href="https://www.flaticon.com/kr/free-icons/" title="날씨 아이콘"
+    <a
+      class="icon-copyright"
+      href="https://www.flaticon.com/kr/free-icons/"
+      title="날씨 아이콘"
       >날씨 아이콘 제작자: Freepik - Flaticon</a
     >
   </body>

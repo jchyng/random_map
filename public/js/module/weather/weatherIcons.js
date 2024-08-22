@@ -27,7 +27,7 @@ const weatherCode = {
 
 const iconMap = {
   [weatherCode.SUNNY]: "img/weather/sunny.png",
-  [weatherCode.PARTLY_CLOUDY]: "img/weather/partly-cloud.png",
+  [weatherCode.PARTLY_CLOUDY]: "img/weather/partly-cloudy.png",
   [weatherCode.CLOUDY]: "img/weather/cloudy.png",
   [weatherCode.RAINY]: "img/weather/rainy.png",
   [weatherCode.SNOWY]: "img/weather/snowy.png",

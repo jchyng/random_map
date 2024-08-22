@@ -1,11 +1,15 @@
 * {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color: #181818;
 }
 
 body {
-  font-family: Arial, sans-serif;
   line-height: 1.6;
   display: flex;
   flex-direction: column;
@@ -47,7 +51,7 @@ select {
 
 button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #213555;
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -57,15 +61,16 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #4f709c;
 }
 
 #map {
   width: 100%;
-  height: 400px;
+  height: 500px;
   margin-bottom: 20px;
   border-radius: 10px;
   overflow: hidden;
+  border: 1px solid #eee;
 }
 
 #traff-btn {
@@ -119,4 +124,10 @@ button:hover {
   .container {
     margin: 0 120px;
   }
+}
+
+.icon-copyright {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 12px;
 }

@@ -1,10 +1,17 @@
 const serverURL = "http://localhost:3000";
 
 export const apiModule = {
-  apiGet: async (urn) => {
+  apiGet: async (urn, options = {}) => {
     try {
-      const response = await fetch(serverURL + urn, {
+      const url = new URL(urn, serverURL);
+      console.log("url:", url);
+      const response = await fetch(url, {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          ...options.headers,
+        },
+        ...options,
       });
 
       if (!response.ok) {
@@ -13,10 +20,10 @@ export const apiModule = {
 
       const data = await response.json();
       console.log("API response:", data);
-      return data; // 데이터를 반환
+      return data;
     } catch (error) {
-      console.error("Error:", error);
-      throw error; // 에러를 호출 측으로 전파
+      console.error("API Error:", error);
+      throw error;
     }
   },
 };

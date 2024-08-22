@@ -15,10 +15,10 @@ function createSwiper() {
   });
 }
 
-function destorySwiper() {
+function destroySwiper() {
   const swiperContainer = document.querySelector(".swiper");
 
-  if (swiperContainer.swiper) {
+  if (swiperContainer && swiperContainer.swiper) {
     swiperContainer.swiper.destroy(true, true);
   }
 
@@ -27,6 +27,8 @@ function destorySwiper() {
 }
 
 function clearHtml(baseTag = document, selector) {
+  if (!baseTag) return;
+
   const tag = baseTag.querySelector(selector);
 
   if (tag) {
@@ -34,4 +36,4 @@ function clearHtml(baseTag = document, selector) {
   }
 }
 
-export { createSwiper, destorySwiper };
+export { createSwiper, destroySwiper };

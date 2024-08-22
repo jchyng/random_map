@@ -1,6 +1,11 @@
 export const mapModule = {
   getMyLocation: () => {
     return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error("Geolocation is not supported by this browser."));
+        return;
+      }
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const currentPosition = new naver.maps.LatLng(
@@ -13,19 +18,34 @@ export const mapModule = {
           reject(error);
         },
         {
-          enableHighAccuracy: true, // 높은 정확도 요청
-          timeout: 5000, // 타임아웃 설정
-          maximumAge: 0, // 캐시된 위치 정보 사용 안함
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
         }
       );
     });
   },
+
   zoomPosition: (map, position, zoomLevel = 14) => {
+    if (!map || !position) {
+      console.error("Invalid map or position");
+      return;
+    }
     map.setCenter(position);
     map.setZoom(zoomLevel);
   },
-  setTrafficLayer: (map) => {
-    var trafficLayer = new naver.maps.TrafficLayer();
-    trafficLayer.setMap(map);
-  },
+
+  setTrafficLayer: (() => {
+    let trafficLayer = null;
+    return (map) => {
+      if (!map) {
+        console.error("Invalid map");
+        return;
+      }
+      if (!trafficLayer) {
+        trafficLayer = new naver.maps.TrafficLayer();
+      }
+      trafficLayer.setMap(trafficLayer.getMap() ? null : map);
+    };
+  })(),
 };

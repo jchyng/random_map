@@ -1,36 +1,48 @@
+.swiper-wrapper {
+  margin-bottom: 48px;
+}
+
 .swiper-slide {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  border-radius: 15px;
+
+  background-color: #132531;
+  color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+
+  border: 1px solid #eee;
+  border-radius: 15px;
+
+  width: 200px;
+  min-height: 200px;
+  height: 200px;
+  padding: 12px;
+
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
-  width: 200px;
-  height: 250px;
+  cursor: pointer;
 }
 
 .swiper-slide.sunny {
-  background-color: #2376f1;
+  background-color: #fffff4;
 }
 
 .swiper-slide.partly_cloudy {
-  background-color: #b3e5fc;
+  background-color: #f1f2f3;
 }
 
 .swiper-slide.cloudy {
-  background-color: #90a4ae;
+  background-color: #d5dce6;
 }
 
 .swiper-slide.rainy {
-  background-color: #4fc3f7;
+  background-color: #e7e7e8;
 }
 
 .swiper-slide.snowy {
-  background-color: #e1f5fe;
+  background-color: #f5fbfe;
 }
 
 .swiper-slide:hover {
@@ -46,7 +58,6 @@
 
 .swiper-slide p {
   margin: 5px 0;
-  font-family: "Roboto", sans-serif;
   color: #333;
 }
 
@@ -67,14 +78,58 @@
   line-height: 1.4;
 }
 
+.swiper-slide .date-of-week {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.swiper-slide .weather-icon {
+  margin-block: 8px;
+  width: 36px;
+  height: 36px;
+}
+
+.swiper-slide .temperature-text {
+  font-size: 14px;
+  color: #7c7c7c;
+}
+
+.swiper-slide .temperature {
+  margin: 0;
+  font-weight: 500;
+}
+
+.temperature.min {
+  color: #4f709c;
+}
+
+.temperature.max {
+  color: #ff6b6b;
+}
+
+.swiper-slide .rainfall {
+  font-size: 12px;
+  margin-top: 12px;
+}
+
 /* Swiper 내비게이션 버튼 스타일링 */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #007bff;
-  width: 30px;
-  height: 30px;
+  color: #c6cedf;
+  width: 30px !important;
+  height: 30px !important;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.1);
+  color: #4f709c !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+  font-size: 16px !important;
+  font-weight: bold;
 }
 
 .swiper-button-next:hover,
@@ -84,11 +139,11 @@
 
 /* Swiper 페이지네이션 스타일링 */
 .swiper-pagination-bullet {
-  background: #007bff;
+  background: #4f709c !important;
 }
 
 .swiper-pagination-bullet-active {
-  background: #0056b3;
+  background: #4f709c !important;
 }
 
 /* 폰트 스타일링 */
