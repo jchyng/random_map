@@ -5,13 +5,16 @@ const path = require("path");
 const PORT = process.env.PORT || 3000;
 
 // 데이터베이스 연결 설정
-// const connection = mysql.createConnection({
-//   host: process.env.DB_HOST || "localhost",
-//   user: process.env.DB_USER || "your_username",
-//   password: process.env.DB_PASSWORD || "your_password",
-//   database: process.env.DB_NAME || "test_db",
-// });
-const connectio = null;
+const connection = mysql.createPool({
+  host: process.env.DB_HOST || "203.130.178.90",
+  port: 33062,
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "1234",
+  database: process.env.DB_NAME || "map",
+  ssl: false,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
 // 쿼리 실행 함수
 function executeQuery(query, params = []) {
@@ -29,9 +32,11 @@ function executeQuery(query, params = []) {
 
 // 타겟 테이블 유효성 검사 미들웨어
 function validateTarget(req, res, next) {
+  console.log(req.query);
   const { target } = req.query;
-  if (!target) {
-    return res.status(400).json({ error: "Target table is required" });
+  const allowedTargets = ["mountains", "beaches"]; // 허용된 테이블 이름 목록
+  if (!target || !allowedTargets.includes(target)) {
+    return res.status(400).json({ error: "Invalid or missing target table" });
   }
   req.target = target;
   next();
@@ -39,8 +44,9 @@ function validateTarget(req, res, next) {
 
 // 공통 쿼리 생성 함수
 function createQuery(target, address) {
-  let query = `SELECT * FROM ${target}`;
-  const queryParams = [];
+  console.log("table = ", target);
+  let query = `SELECT * FROM ??`;
+  const queryParams = [target];
 
   if (address) {
     query += ` WHERE address LIKE ?`;
@@ -51,6 +57,8 @@ function createQuery(target, address) {
 
 // 검색 엔드포인트
 app.get("/search", validateTarget, async (req, res) => {
+  console.log("req");
+  console.log(req.query);
   const { target, address } = req.query;
   const { query, queryParams } = createQuery(target, address);
 
@@ -68,7 +76,7 @@ app.get("/search", validateTarget, async (req, res) => {
 // 랜덤 엔드포인트
 app.get("/random", validateTarget, async (req, res) => {
   const { target, address } = req.query;
-  const { query, queryParams } = createQuery(target, address);
+  let { query, queryParams } = createQuery(target, address);
   query += ` ORDER BY RAND() LIMIT 1`;
 
   console.log("랜덤 쿼리:", query);
