@@ -33,10 +33,11 @@ function setTrafficLayer(map) {
 async function initMyLocation() {
   try {
     const userLocation = await mapModule.getMyLocation();
-    let marker = markerModule.marking(map, userLocation);
-    naver.maps.Event.addListener(marker, "click", () =>
-      mapModule.zoomPosition(map, userLocation)
-    );
+    const marker = markerModule.marking(map, userLocation);
+    const infowindow = new naver.maps.InfoWindow({
+      content: "<p style='padding: 4px'>현재 위치</p>",
+    });
+    addMarkerEventListeners(marker, infowindow);
   } catch (error) {
     console.error("Error occurred while getting location: " + error.message);
   }
@@ -65,16 +66,7 @@ async function fetchTarget(path) {
   return await apiModule.apiGet(urn);
 }
 
-function addTargetMarkerEventListeners(marker, infowindow) {
-  naver.maps.Event.addListener(marker, "click", () =>
-    targetMarkerClickFunction(marker, infowindow)
-  );
-  naver.maps.Event.addListener(marker, "dblclick", () =>
-    mapModule.zoomPosition(map, marker.getPosition())
-  );
-}
-
-async function targetMarkerClickFunction(marker, infowindow) {
+async function markerClickFunction(marker, infowindow) {
   if (infowindow.getMap()) {
     infowindow.close();
   } else {
@@ -88,19 +80,47 @@ async function targetMarkerClickFunction(marker, infowindow) {
 async function handleSearch() {
   markerModule.removeAllMarkers(map);
   const results = await fetchTarget("/search");
-  results.forEach((el) => {
-    const latLng = new naver.maps.LatLng(el.lat, el.lot);
-    let marker = markerModule.markingTarget(map, latLng);
-    let infowindow = markerModule.createInfoWindow(el);
-    addTargetMarkerEventListeners(marker, infowindow);
-  });
+  for (let i = 0; i < results.length - 1; i++) {
+    handleCommon(results[i]);
+  }
+  let { marker, infowindow } = handleCommon(results[results.length - 1]);
+  markerClickFunction(marker, infowindow);
 }
 
 async function handleRandom() {
   markerModule.removeAllMarkers(map);
   const result = await fetchTarget("/random");
+  let { marker, infowindow } = handleCommon(result);
+  markerClickFunction(marker, infowindow);
+}
+
+function handleCommon(result) {
   const latLng = new naver.maps.LatLng(result.lat, result.lot);
-  let marker = markerModule.markingTarget(map, latLng);
-  let infowindow = markerModule.createInfoWindow(result);
-  addTargetMarkerEventListeners(marker, infowindow);
+  const marker = markerModule.markingTarget(map, latLng);
+  const infowindow = createTargetInfoWindows(result);
+  addMarkerEventListeners(marker, infowindow);
+  return { marker, infowindow };
+}
+
+function createTargetInfoWindows(targetData) {
+  return new naver.maps.InfoWindow({
+    content: `
+      <div style="padding:10px;width:200px;">
+        <h3>${targetData.name}</h3>
+        ${targetData.address ? `<p>주소: ${targetData.address}</p>` : ""}
+        ${targetData.altitude ? `<p>고도: ${targetData.altitude}m</p>` : ""}
+        <p>위도: ${targetData.lat}</p>
+        <p>경도: ${targetData.lot}</p>
+      </div>
+    `,
+  });
+}
+
+function addMarkerEventListeners(marker, infowindow) {
+  naver.maps.Event.addListener(marker, "click", () =>
+    markerClickFunction(marker, infowindow)
+  );
+  naver.maps.Event.addListener(marker, "dblclick", () =>
+    mapModule.zoomPosition(map, marker.getPosition())
+  );
 }

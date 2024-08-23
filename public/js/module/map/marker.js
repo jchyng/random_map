@@ -12,9 +12,6 @@ export const markerModule = {
       map: map,
     });
 
-    if (!map.markers) map.markers = [];
-    map.markers.push(marker);
-
     return marker;
   },
   markingTarget: (map, position) => {
