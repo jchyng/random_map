@@ -109,8 +109,6 @@ function createTargetInfoWindows(targetData) {
         <h3>${targetData.name}</h3>
         ${targetData.address ? `<p>주소: ${targetData.address}</p>` : ""}
         ${targetData.altitude ? `<p>고도: ${targetData.altitude}m</p>` : ""}
-        <p>위도: ${targetData.lat}</p>
-        <p>경도: ${targetData.lot}</p>
       </div>
     `,
   });
