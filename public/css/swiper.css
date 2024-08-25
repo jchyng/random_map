@@ -1,3 +1,29 @@
+/* 폰트 스타일링 */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+/* 스와이퍼가 비었을 경우를 위한 스타일 */
+.swiper-wrapper:empty::after {
+  content: "장소를 선택하면 날씨를 볼 수 있습니다";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  color: #4f709c;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  background-color: #f1f2f3;
+  border-radius: 15px;
+}
+
+/* 스와이퍼가 비었을 때 내비게이션 버튼과 페이지네이션 숨기기 */
+.swiper-wrapper:empty ~ .swiper-button-next,
+.swiper-wrapper:empty ~ .swiper-button-prev,
+.swiper-wrapper:empty ~ .swiper-pagination {
+  display: none;
+}
+
 .swiper-wrapper {
   margin-bottom: 48px;
 }
@@ -146,5 +172,75 @@
   background: #4f709c !important;
 }
 
-/* 폰트 스타일링 */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/* 여기서부터 모바일 반응형 스타일 추가 */
+@media screen and (max-width: 768px) {
+  .swiper-wrapper:empty::after {
+    height: 80px;
+    font-size: 14px;
+  }
+
+  .swiper-wrapper {
+    margin-bottom: 24px;
+  }
+
+  .swiper-slide {
+    width: 150px;
+    min-height: 150px;
+    height: 150px;
+    padding: 8px;
+  }
+
+  .swiper-slide img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+
+  .swiper-slide .date {
+    font-size: 16px;
+  }
+
+  .swiper-slide .temp {
+    font-size: 14px;
+  }
+
+  .swiper-slide .precipitation {
+    font-size: 12px;
+  }
+
+  .swiper-slide .date-of-week {
+    font-size: 12px;
+  }
+
+  .swiper-slide .weather-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .swiper-slide .temperature-text {
+    font-size: 12px;
+  }
+
+  .swiper-slide .rainfall {
+    font-size: 10px;
+    margin-top: 8px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after,
+  .swiper-rtl .swiper-button-prev:after,
+  .swiper-rtl .swiper-button-next:after {
+    font-size: 12px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+  }
+}

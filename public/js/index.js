@@ -8,6 +8,8 @@ let map = new naver.maps.Map("map", {
   zoom: 6,
 });
 
+let currentInfoWindow = null;
+
 //이벤트 리스너 등록
 document
   .getElementById("traff-btn")
@@ -20,9 +22,12 @@ document.getElementById("random-btn").addEventListener("click", handleRandom);
 //사용자 현재 위치 표시
 initMyLocation();
 
-displayWeatherOnSwiper(37.5666805, 126.9784147);
-
 // Functions
+
+function initMap() {
+  map.setZoom(6);
+  map.center(new naver.maps.LatLng(37.5666805, 126.9784147));
+}
 
 //교통 상황 표시
 function setTrafficLayer(map) {
@@ -35,7 +40,7 @@ async function initMyLocation() {
     const userLocation = await mapModule.getMyLocation();
     const marker = markerModule.marking(map, userLocation);
     const infowindow = new naver.maps.InfoWindow({
-      content: "<p style='padding: 4px'>현재 위치</p>",
+      content: "<h4 style='padding: 4px'>현재 위치</h4>",
     });
     addMarkerEventListeners(marker, infowindow);
   } catch (error) {
@@ -72,19 +77,24 @@ async function markerClickFunction(marker, infowindow) {
   } else {
     infowindow.open(map, marker);
   }
+  currentInfoWindow = infowindow;
 
   var position = marker.getPosition();
   displayWeatherOnSwiper(position.lat(), position.lng());
 }
 
 async function handleSearch() {
+  if (currentInfoWindow) {
+    currentInfoWindow.close();
+  }
+
   markerModule.removeAllMarkers(map);
   const results = await fetchTarget("/search");
   for (let i = 0; i < results.length - 1; i++) {
     handleCommon(results[i]);
   }
   let { marker, infowindow } = handleCommon(results[results.length - 1]);
-  markerClickFunction(marker, infowindow);
+  initMap();
 }
 
 async function handleRandom() {
@@ -92,6 +102,7 @@ async function handleRandom() {
   const result = await fetchTarget("/random");
   let { marker, infowindow } = handleCommon(result);
   markerClickFunction(marker, infowindow);
+  initMap();
 }
 
 function handleCommon(result) {
@@ -99,15 +110,15 @@ function handleCommon(result) {
   const marker = markerModule.markingTarget(map, latLng);
   const infowindow = createTargetInfoWindows(result);
   addMarkerEventListeners(marker, infowindow);
+
   return { marker, infowindow };
 }
 
 function createTargetInfoWindows(targetData) {
   return new naver.maps.InfoWindow({
     content: `
-      <div style="padding:10px;width:200px;">
-        <h3>${targetData.name}</h3>
-        ${targetData.address ? `<p>주소: ${targetData.address}</p>` : ""}
+      <div style="padding:4px">
+        <h4>${targetData.name}</h4>
         ${targetData.altitude ? `<p>고도: ${targetData.altitude}m</p>` : ""}
       </div>
     `,
