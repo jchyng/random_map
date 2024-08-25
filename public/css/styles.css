@@ -96,10 +96,6 @@ button:hover {
     padding: 8px 12px;
   }
 
-  #map {
-    height: 300px;
-  }
-
   /* 모바일에서 하단 광고 공간 확보 */
   body {
     padding-bottom: 60px;

@@ -3,7 +3,7 @@ import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs
 function createSwiper() {
   return new Swiper(".swiper", {
     slidesPerView: 2, // 모바일 기본값
-    spaceBetween: 10,
+    spaceBetween: 15,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -19,7 +19,6 @@ function createSwiper() {
       },
       1024: {
         slidesPerView: 5, // 데스크톱
-        spaceBetween: 30,
       },
     },
   });

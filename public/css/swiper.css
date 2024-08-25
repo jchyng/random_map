@@ -185,7 +185,7 @@
 
   .swiper-slide {
     width: 150px;
-    min-height: 150px;
+    min-height: 170px;
     height: 150px;
     padding: 8px;
   }
@@ -242,5 +242,12 @@
   .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
+  }
+
+  .swiper-pagination {
+    bottom: 5px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
