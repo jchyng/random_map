@@ -5,12 +5,23 @@ const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
 async function getWeatherForecast(latitude, longitude) {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode&timezone=auto&forecast_days=7`;
+
+  const swiperWrapper = document.querySelector(".swiper-wrapper");
+  const loadingElement = document.querySelector(".swiper-loading");
+
+  // 로딩 시작
+  swiperWrapper.innerHTML = "";
+  loadingElement.style.display = "flex";
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+
+    // 로딩 완료
+    loadingElement.style.display = "none";
+
     return data.daily.time.map((date, index) => ({
       date: new Date(date).toLocaleDateString(),
       maxTemp: Math.round(data.daily.temperature_2m_max[index]),
@@ -21,6 +32,8 @@ async function getWeatherForecast(latitude, longitude) {
     }));
   } catch (error) {
     console.error("날씨 정보를 가져오는 데 실패했습니다:", error);
+    loadingElement.style.display = "none";
+    swiperWrapper.innerHTML = "데이터를 불러오는 데 실패했습니다.";
     return null;
   }
 }

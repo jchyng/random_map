@@ -17,11 +17,43 @@
   border-radius: 15px;
 }
 
-/* 스와이퍼가 비었을 때 내비게이션 버튼과 페이지네이션 숨기기 */
 .swiper-wrapper:empty ~ .swiper-button-next,
 .swiper-wrapper:empty ~ .swiper-button-prev,
 .swiper-wrapper:empty ~ .swiper-pagination {
   display: none;
+}
+
+.swiper-loading {
+  height: 100px;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(241, 242, 243, 0.7);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #4f709c;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .swiper-wrapper {
