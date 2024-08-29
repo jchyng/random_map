@@ -26,7 +26,7 @@ initMyLocation();
 
 function initMap() {
   map.setZoom(6);
-  map.center(new naver.maps.LatLng(37.5666805, 126.9784147));
+  map.setCenter(new naver.maps.LatLng(37.5666805, 126.9784147));
 }
 
 //교통 상황 표시

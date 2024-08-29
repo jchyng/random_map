@@ -1,10 +1,9 @@
-const serverURL = "http://randommap.duckdns.org";
+const serverURL = "https://randommap.duckdns.org";
 
 export const apiModule = {
   apiGet: async (urn, options = {}) => {
     try {
       const url = new URL(urn, serverURL);
-      console.log("url:", url);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -19,10 +18,10 @@ export const apiModule = {
       }
 
       const data = await response.json();
-      console.log("API response:", data);
+      // console.log("API response:", data);
       return data;
     } catch (error) {
-      console.error("API Error:", error);
+      // console.error("API Error:", error);
       throw error;
     }
   },
