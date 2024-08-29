@@ -1,4 +1,4 @@
-const serverURL = "http://localhost:3000";
+const serverURL = "http://randommap.duckdns.org";
 
 export const apiModule = {
   apiGet: async (urn, options = {}) => {
